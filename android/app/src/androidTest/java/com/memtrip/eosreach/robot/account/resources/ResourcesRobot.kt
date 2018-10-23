@@ -72,6 +72,17 @@ class ResourcesRobot {
         return this
     }
 
+    fun enterUsername(accountName: String, fragmentId: Int): ResourcesRobot {
+        onView(allOf(
+            withId(R.id.manage_bandwidth_target_account_form_input),
+            isDescendantOfA(withId(fragmentId))
+        ))
+            .check(matches(isDisplayed()))
+            .perform(typeText(accountName))
+            .perform(pressImeActionButton())
+        return this
+    }
+
     fun enterNetBalance(amount: String, fragmentId: Int): ResourcesRobot {
         onView(allOf(
             withId(R.id.manage_bandwidth_net_amount_form_input),

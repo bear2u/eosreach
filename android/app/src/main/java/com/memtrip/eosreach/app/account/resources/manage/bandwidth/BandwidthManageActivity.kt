@@ -40,7 +40,7 @@ class BandwidthManageActivity
     @Inject
     lateinit var render: ManageBandwidthViewRenderer
 
-    private lateinit var eosAccount: EosAccount
+    private lateinit var bandwidthFormBundle: BandwidthFormBundle
     private lateinit var contractAccountBalance: ContractAccountBalance
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +51,7 @@ class BandwidthManageActivity
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        eosAccount = eosAccountExtra(intent)
+        bandwidthFormBundle = bandwidthFormBundleExtra(intent)
         contractAccountBalance = contractAccountBalanceExtra(intent)
     }
 
@@ -67,6 +67,8 @@ class BandwidthManageActivity
                     BandwidthManageIntent.DelegateBandwidthTabIdle
                 BandwidthManageFragmentPagerAdapter.Page.UNDELEGATE.ordinal ->
                     BandwidthManageIntent.UnDelegateBandwidthTabIdle
+                BandwidthManageFragmentPagerAdapter.Page.ALLOCATED.ordinal ->
+                    BandwidthManageIntent.AllocatedTabIdle
                 else ->
                     BandwidthManageIntent.DelegateBandwidthTabIdle
             }
@@ -85,11 +87,11 @@ class BandwidthManageActivity
         val fragmentPagerAdapter = BandwidthManageFragmentPagerAdapter(
             supportFragmentManager,
             this,
-            eosAccount,
+            bandwidthFormBundle,
             contractAccountBalance)
 
         manage_bandwidth_viewpager.adapter = fragmentPagerAdapter
-        manage_bandwidth_viewpager.offscreenPageLimit = 2
+        manage_bandwidth_viewpager.offscreenPageLimit = 3
         manage_bandwidth_viewpager.currentItem = page.ordinal
         manage_bandwidth_viewpager.visible()
 
@@ -98,25 +100,25 @@ class BandwidthManageActivity
 
     companion object {
 
-        private const val EOS_ACCOUNT_EXTRA = "EOS_ACCOUNT_EXTRA"
-        private const val CONTRACT_ACCOUNT_BALANCE = "CONTRACT_ACCOUNT_BALANCE"
+        private const val BANDWIDTH_FORM_BUNDLE = "BANDWIDTH_FORM_BUNDLE"
+        private const val CONTRACT_ACCOUNT_BALANCE_EXTRA = "CONTRACT_ACCOUNT_BALANCE_EXTRA"
 
         fun manageBandwidthIntent(
-            eosAccount: EosAccount,
+            bandwidthFormBundle: BandwidthFormBundle,
             contractAccountBalance: ContractAccountBalance,
             context: Context
         ): Intent {
             return with (Intent(context, BandwidthManageActivity::class.java)) {
-                putExtra(EOS_ACCOUNT_EXTRA, eosAccount)
-                putExtra(CONTRACT_ACCOUNT_BALANCE, contractAccountBalance)
+                putExtra(BANDWIDTH_FORM_BUNDLE, bandwidthFormBundle)
+                putExtra(CONTRACT_ACCOUNT_BALANCE_EXTRA, contractAccountBalance)
                 this
             }
         }
 
-        private fun eosAccountExtra(intent: Intent): EosAccount =
-            intent.getParcelableExtra(EOS_ACCOUNT_EXTRA)
+        private fun bandwidthFormBundleExtra(intent: Intent): BandwidthFormBundle =
+            intent.getParcelableExtra(BANDWIDTH_FORM_BUNDLE)
 
         private fun contractAccountBalanceExtra(intent: Intent): ContractAccountBalance =
-            intent.getParcelableExtra(CONTRACT_ACCOUNT_BALANCE)
+            intent.getParcelableExtra(CONTRACT_ACCOUNT_BALANCE_EXTRA)
     }
 }

@@ -19,6 +19,7 @@ class UnDelegateBandwidthGenericErrorTestCase : StubTestCase() {
             .selectBandwidthButton()
             .verifyManageBandwidthScreen()
             .selectUndelegateTab()
+            .enterUsername("memtripissue", R.id.account_resources_undelegate_bandwidth_fragment)
             .enterNetBalance("0.9000", R.id.account_resources_undelegate_bandwidth_fragment)
             .enterCpuBalance("1.1034", R.id.account_resources_undelegate_bandwidth_fragment)
             .selectBandwidthFormCtaButton(R.id.account_resources_undelegate_bandwidth_fragment)

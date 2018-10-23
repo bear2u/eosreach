@@ -31,6 +31,7 @@ sealed class ResourcesRenderAction : MxRenderAction {
         val contractAccountBalance: ContractAccountBalance
     ) : ResourcesRenderAction()
     object NavigateToManageBandwidth : ResourcesRenderAction()
+    object NavigateToManageBandwidthWithAccountName : ResourcesRenderAction()
     object NavigateToManageRam : ResourcesRenderAction()
 }
 
@@ -47,6 +48,7 @@ interface ResourcesViewLayout : MxViewLayout {
     fun populateCpuDelegated(delegated: String)
     fun emptyCpuDelegated()
     fun navigateToManageBandwidth()
+    fun navigateToManageBandwidthWithAccountName()
     fun navigateToManageRam()
 }
 
@@ -97,6 +99,9 @@ class ResourcesViewRenderer @Inject internal constructor() : MxViewRenderer<Reso
         }
         ResourcesViewState.View.NavigateToManageRam -> {
             layout.navigateToManageRam()
+        }
+        is ResourcesViewState.View.NavigateToManageBandwidthWithAccountName -> {
+            layout.navigateToManageBandwidthWithAccountName()
         }
     }
 }

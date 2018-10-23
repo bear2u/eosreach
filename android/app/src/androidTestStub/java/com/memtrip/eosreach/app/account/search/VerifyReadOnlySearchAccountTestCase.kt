@@ -18,6 +18,5 @@ class VerifyReadOnlySearchAccountTestCase : StubTestCase() {
             .selectFirstTokenRow()
         actionsRobot
             .verifyActionsReadOnlyScreen()
-
     }
 }

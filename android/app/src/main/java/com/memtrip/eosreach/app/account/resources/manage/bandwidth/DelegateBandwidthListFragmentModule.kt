@@ -16,22 +16,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 package com.memtrip.eosreach.app.account.resources.manage.bandwidth
 
-import com.memtrip.eosreach.api.account.EosAccount
-import com.memtrip.eosreach.api.balance.ContractAccountBalance
-import com.memtrip.mxandroid.MxViewIntent
+import androidx.lifecycle.ViewModel
+import com.memtrip.eosreach.app.ViewModelKey
 
-sealed class BandwidthFormIntent : MxViewIntent {
-    data class Init(
-        val contractAccountBalance: ContractAccountBalance,
-        val bandwidthFormBundle: BandwidthFormBundle
-    ) : BandwidthFormIntent()
-    object Idle : BandwidthFormIntent()
-    data class Confirm(
-        val bandwidthCommitType: BandwidthCommitType,
-        val netAmount: String,
-        val cpuAmount: String,
-        val toAccount: String,
-        val transfer: Boolean,
-        val contractAccountBalance: ContractAccountBalance
-    ) : BandwidthFormIntent()
+import dagger.Binds
+import dagger.Module
+
+import dagger.multibindings.IntoMap
+
+@Module
+abstract class DelegateBandwidthListFragmentModule {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DelegateBandwidthListViewModel::class)
+    internal abstract fun contributesDelegateBandwidthListViewModel(viewModel: DelegateBandwidthListViewModel): ViewModel
 }

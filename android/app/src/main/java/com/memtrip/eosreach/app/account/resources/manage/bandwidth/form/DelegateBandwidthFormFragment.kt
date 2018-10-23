@@ -20,7 +20,9 @@ import com.memtrip.eosreach.R
 import com.memtrip.eosreach.api.account.EosAccount
 import com.memtrip.eosreach.api.balance.ContractAccountBalance
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthCommitType
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormBundle
 import com.memtrip.eosreach.app.account.resources.manage.bandwidth.BandwidthFormFragment
+import com.memtrip.eosreach.app.account.resources.manage.bandwidth.DelegateTarget
 
 class DelegateBandwidthFormFragment : BandwidthFormFragment() {
     override fun rootViewId(): Int = R.id.account_resources_delegate_bandwidth_fragment
@@ -30,11 +32,11 @@ class DelegateBandwidthFormFragment : BandwidthFormFragment() {
     companion object {
 
         fun newInstance(
-            eosAccount: EosAccount,
+            bandwidthFormBundle: BandwidthFormBundle,
             contractAccountBalance: ContractAccountBalance
         ): DelegateBandwidthFormFragment {
             return with (DelegateBandwidthFormFragment()) {
-                arguments = BandwidthFormFragment.toBundle(eosAccount, contractAccountBalance)
+                arguments = BandwidthFormFragment.toBundle(bandwidthFormBundle, contractAccountBalance)
                 this
             }
         }

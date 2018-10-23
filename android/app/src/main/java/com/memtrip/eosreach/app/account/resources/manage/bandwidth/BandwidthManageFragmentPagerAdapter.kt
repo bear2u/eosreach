@@ -31,13 +31,15 @@ import java.util.Arrays
 class BandwidthManageFragmentPagerAdapter(
     fragmentManager: FragmentManager,
     private val context: Context,
-    private val eosAccount: EosAccount,
+    private val bandwidthFormBundle: BandwidthFormBundle,
     private val contractAccountBalance: ContractAccountBalance,
-    private val pages: List<Page> = Arrays.asList(Page.DELEGATE, Page.UNDELEGATE),
+    private val pages: List<Page> = Arrays.asList(Page.DELEGATE, Page.UNDELEGATE, Page.ALLOCATED),
     private val delegateBandwidthFormFragment: DelegateBandwidthFormFragment =
-        DelegateBandwidthFormFragment.newInstance(eosAccount, contractAccountBalance),
-    private val unDelegateBandwidthFormFragment: UnDelegateBandwidthFormFragment =
-        UnDelegateBandwidthFormFragment.newInstance(eosAccount, contractAccountBalance)
+        DelegateBandwidthFormFragment.newInstance(bandwidthFormBundle, contractAccountBalance),
+    private val undelegateBandwidthFormFragment: UnDelegateBandwidthFormFragment =
+        UnDelegateBandwidthFormFragment.newInstance(bandwidthFormBundle, contractAccountBalance),
+    private val delegateBandwidthListFragment: DelegateBandwidthListFragment =
+        DelegateBandwidthListFragment.newInstance(contractAccountBalance)
 ) : FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getPageTitle(position: Int): CharSequence? {
@@ -45,6 +47,7 @@ class BandwidthManageFragmentPagerAdapter(
         return when (page) {
             Page.DELEGATE -> context.getString(R.string.resources_manage_bandwidth_tab_delegate)
             Page.UNDELEGATE -> context.getString(R.string.resources_manage_bandwidth_tab_undelegate)
+            Page.ALLOCATED -> context.getString(R.string.resources_manage_bandwidth_tab_allocated)
         }
     }
 
@@ -52,7 +55,8 @@ class BandwidthManageFragmentPagerAdapter(
         val page = pages[position]
         return when (page) {
             Page.DELEGATE -> delegateBandwidthFormFragment
-            Page.UNDELEGATE -> unDelegateBandwidthFormFragment
+            Page.UNDELEGATE -> undelegateBandwidthFormFragment
+            Page.ALLOCATED -> delegateBandwidthListFragment
         }
     }
 
@@ -60,6 +64,7 @@ class BandwidthManageFragmentPagerAdapter(
 
     enum class Page {
         DELEGATE,
-        UNDELEGATE
+        UNDELEGATE,
+        ALLOCATED
     }
 }

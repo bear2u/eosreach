@@ -26,6 +26,8 @@ import com.memtrip.eosreach.api.balance.AccountBalanceRequest
 import com.memtrip.eosreach.api.balance.AccountBalanceRequestImp
 import com.memtrip.eosreach.api.bandwidth.BandwidthRequest
 import com.memtrip.eosreach.api.bandwidth.BandwidthRequestImpl
+import com.memtrip.eosreach.api.bandwidth.GetBandwidthRequest
+import com.memtrip.eosreach.api.bandwidth.GetBandwidthRequestImpl
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequest
 import com.memtrip.eosreach.api.blockproducer.BlockProducerRequestImpl
 import com.memtrip.eosreach.api.customtokens.CustomTokensRequest
@@ -109,6 +111,11 @@ internal abstract class RequestModule {
     internal abstract fun bindProxyVoterRequest(
         bindProxyVoterRequest: ProxyVoterRequestImpl
     ): ProxyVoterRequest
+
+    @Binds
+    internal abstract fun bindGetBandwidthRequest(
+        getBandwidthRequest: GetBandwidthRequestImpl
+    ): GetBandwidthRequest
 
     @Binds
     internal abstract fun bindEosPriceRequest(
